@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduSmart - All Subjects Learning Hub (Nursery to 10th)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .kids-font { font-family: 'Fredoka', cursive; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col">
+
+    <!-- TOP BANNER -->
+    <div class="bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 text-slate-900 text-xs sm:text-sm font-semibold px-4 py-2 text-center shadow flex items-center justify-center gap-2">
+        <span>🎉 Special Offer: EduSmart Pro Subscription at 50% OFF!</span>
+        <button onclick="openSubscriptionModal()" class="bg-slate-900 text-white px-3 py-1 rounded-full font-bold hover:bg-slate-800 shadow">Upgrade Now ⭐</button>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="resetToHome()">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 via-sky-500 to-amber-400 p-0.5 shadow-md flex items-center justify-center">
+                    <div class="w-full h-full bg-white dark:bg-slate-800 rounded-[14px] flex items-center justify-center">
+                        <span class="kids-font font-black text-2xl bg-gradient-to-r from-indigo-600 to-sky-500 bg-clip-text text-transparent">ES</span>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="kids-font text-xl font-bold bg-gradient-to-r from-indigo-600 via-sky-600 to-amber-500 bg-clip-text text-transparent">EduSmart Hub</h1>
+                    <p class="text-[11px] text-slate-500 font-semibold">Nursery to Class 10th • Student Learning Platform</p>
+                </div>
+            </div>
+            <button onclick="openSubscriptionModal()" class="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow">👑 PRO</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-6 w-full">
+        <div id="breadcrumb" class="hidden mb-4 items-center gap-2 text-sm text-slate-500">
+            <button onclick="resetToHome()" class="font-semibold flex items-center gap-1 hover:text-indigo-600">🏠 Home</button>
+            <span>/</span>
+            <span id="breadcrumb-path" class="font-bold text-slate-800 dark:text-slate-200"></span>
+        </div>
+
+        <div id="hero-section" class="text-center py-6">
+            <h2 class="text-3xl kids-font font-bold mb-2 text-indigo-600 dark:text-indigo-400">Welcome to EduSmart Learning Hub! 🎒</h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">Apni class select karein aur chapter-wise padhai shuru karein.</p>
+        </div>
+
+        <!-- GRADE SELECTION GRID -->
+        <div id="grade-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 pb-12">
+            <div onclick="selectGrade('Nursery')" class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-indigo-500 cursor-pointer text-center">
+                <div class="w-14 h-14 mx-auto mb-2 rounded-2xl bg-pink-100 text-pink-600 flex items-center justify-center text-2xl font-bold kids-font">🧸</div>
+                <h3 class="kids-font font-bold text-lg text-slate-800 dark:text-white">Nursery</h3>
+                <p class="text-xs text-slate-500">Fun & Basics</p>
+            </div>
+            <div onclick="selectGrade('LKG')" class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-indigo-500 cursor-pointer text-center">
+                <div class="w-14 h-14 mx-auto mb-2 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl font-bold kids-font">🎨</div>
+                <h3 class="kids-font font-bold text-lg text-slate-800 dark:text-white">LKG</h3>
+                <p class="text-xs text-slate-500">ABC & Numbers</p>
+            </div>
+            <div onclick="selectGrade('UKG')" class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-indigo-500 cursor-pointer text-center">
+                <div class="w-14 h-14 mx-auto mb-2 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center text-2xl font-bold kids-font">🚀</div>
+                <h3 class="kids-font font-bold text-lg text-slate-800 dark:text-white">UKG</h3>
+                <p class="text-xs text-slate-500">Reading & Words</p>
+            </div>
+            <script>
+                const icons = ['📘', '📐', '🔬', '🌍', '🧪', '🧬', '💻', '📈', '📜', '🎓'];
+                for (let i = 1; i <= 10; i++) {
+                    document.write(`
+                        <div onclick="selectGrade('Class ${i}')" class="bg-white dark:bg-slate-800 p-5 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 hover:border-indigo-500 cursor-pointer text-center">
+                            <div class="w-14 h-14 mx-auto mb-2 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl font-bold kids-font">${icons[i-1]}</div>
+                            <h3 class="kids-font font-bold text-lg text-slate-800 dark:text-white">Class ${i}</h3>
+                            <p class="text-xs text-slate-500">All Subjects</p>
+                        </div>
+                    `);
+                }
+            </script>
+        </div>
+
+        <!-- SUBJECTS SECTION -->
+        <div id="subjects-section" class="hidden">
+            <h3 id="subject-heading" class="text-2xl kids-font font-bold mb-6 text-slate-800 dark:text-white">Select Subject:</h3>
+            <div id="subjects-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+        </div>
+
+        <!-- CHAPTERS SECTION -->
+        <div id="chapters-section" class="hidden">
+            <div class="flex items-center justify-between mb-6">
+                <h3 id="chapters-title" class="text-2xl kids-font font-bold text-slate-800 dark:text-white">Chapters & Lessons</h3>
+                <button onclick="backToSubjects()" class="text-sm bg-slate-200 dark:bg-slate-700 px-4 py-2 rounded-xl font-bold">← Back to Subjects</button>
+            </div>
+            <div id="chapters-list" class="space-y-4"></div>
+        </div>
+
+        <!-- STUDY MATERIAL VIEW (STUDENT CONTENT) -->
+        <div id="study-material-section" class="hidden bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-lg border border-slate-200 dark:border-slate-700">
+            <div class="flex items-center justify-between border-b pb-4 mb-4">
+                <h3 id="lesson-title" class="text-2xl kids-font font-bold text-indigo-600">Lesson Material</h3>
+                <button onclick="backToChapters()" class="text-xs bg-slate-200 dark:bg-slate-700 px-3 py-1.5 rounded-xl font-bold">← Back to Chapters</button>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- VIDEO PLAYER PLACEHOLDER -->
+                <div class="bg-slate-900 rounded-2xl p-8 text-center text-white shadow-inner flex flex-col items-center justify-center min-h-[200px]">
+                    <span class="text-5xl mb-2">🎬</span>
+                    <h4 class="font-bold text-lg">Interactive Video Lesson</h4>
+                    <p class="text-xs text-slate-400 mt-1">Video content loading for students...</p>
+                </div>
+
+                <!-- NOTES SECTION -->
+                <div class="bg-indigo-50 dark:bg-slate-700/50 p-4 rounded-2xl border border-indigo-100 dark:border-slate-600">
+                    <h4 class="font-bold text-slate-800 dark:text-white flex items-center gap-2 mb-2">
+                        <span>📝</span> Chapter Revision Notes
+                    </h4>
+                    <ul class="text-sm text-slate-600 dark:text-slate-300 space-y-1.5 list-disc list-inside">
+                        <li>Basic concepts and formulas explained simply.
